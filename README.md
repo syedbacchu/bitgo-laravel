@@ -54,5 +54,5 @@ The current features are :
    ```
 
 ## Uses
-1. 
+1. We provide a sample code of functionality that will help you to integrate easily
 
