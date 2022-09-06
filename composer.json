@@ -1,0 +1,35 @@
+{
+    "name": "sdtech/bitgo-laravel",
+    "description": "It's a simple library to integrate bitgo wallet api",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sd bacchu",
+            "email": "bacchu.cse11@gmail.com"
+        }
+    ],
+
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sdtech\\BitgoApiLaravel\\": "src/"
+        },
+        "files": [
+            "src/Service/BitgoApiLaravelService.php"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sdtech\\BitgoApiLaravel\\Providers\\BitgoWalletApiServiceProviders"
+            ]
+        }
+    }
+}
