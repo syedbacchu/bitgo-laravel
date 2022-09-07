@@ -378,4 +378,10 @@ class BitgoApiLaravelService
         );
         return $this->api_call('/'.$coin.'/wallet/'.$walletId.'/webhooks','DELETE', json_encode($req));
     }
+
+    // get bitgo deposit divisibility value
+    public function getDepositDivisibilityValue($coin)
+    {
+        return bitgo_divisibility_value(strtoupper($coin));
+    }
 }
