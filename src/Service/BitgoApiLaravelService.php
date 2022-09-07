@@ -106,7 +106,7 @@ class BitgoApiLaravelService
                 return $this->bitgoResponse(false,'Unable to parse JSON result ('.json_last_error().')', []);
             }
         } else {
-            return $this->bitgoResponse(false,'cURL error: '.curl_error($api_url), []);
+            return $this->bitgoResponse(false,'api calling error', []);
         }
     }
 
