@@ -202,7 +202,7 @@ class BitgoApiLaravelService
      * @param memo receipant address
      */
     public function buildTransaction($coin,$walletId,$amount,$address,$memo=null) {
-        $sendAmount = bitgo_divisibility_value(strtoupper($coin)) * $amount;
+        $sendAmount = $this->bitgo_divisibility_value(strtoupper($coin)) * $amount;
         $req = array(
             "recipients" => [
                 'amount' => $sendAmount,
@@ -223,7 +223,7 @@ class BitgoApiLaravelService
      * @param memo receipant address
      */
     public function initiateTransaction($coin,$walletId,$amount,$address,$memo=null) {
-        $sendAmount = bitgo_divisibility_value(strtoupper($coin)) * $amount;
+        $sendAmount = $this->bitgo_divisibility_value(strtoupper($coin)) * $amount;
         $req = array(
             "recipients" => [
                 'amount' => $sendAmount,
@@ -261,7 +261,7 @@ class BitgoApiLaravelService
      * @param walletPassphrase wallet password
      */
     public function sendCoins($coin,$walletId,$amount,$address,$walletPassphrase) {
-        $sendAmount = bitgo_divisibility_value(strtoupper($coin)) * $amount;
+        $sendAmount = $this->bitgo_divisibility_value(strtoupper($coin)) * $amount;
         $req = array(
             'amount' => $sendAmount,
             'address' => $address,
@@ -382,6 +382,72 @@ class BitgoApiLaravelService
     // get bitgo deposit divisibility value
     public function getDepositDivisibilityValue($coin)
     {
-        return bitgo_divisibility_value(strtoupper($coin));
+        return $this->bitgo_divisibility_value(strtoupper($coin));
+    }
+
+
+// bitgo divisibility
+    public function bitgo_divisibility_value($input = null)
+    {
+        $env = $this->bitgoEnv ?? 'test';
+        if ($env == 'test') {
+            $output = $this->bitgo_divisibility_value_testnet();
+        } else {
+            $output = [
+                "EOS"  => 10000,
+                "ALGO" => 1000000,
+                "STX"  => 1000000,
+                "XTZ"  => 1000000,
+                "TRX"  => 1000000,
+                "XLM"  => 10000000,
+                "BTC"  => 100000000,
+                "BCH"  => 100000000,
+                "BTG"  => 100000000,
+                "DASH" => 100000000,
+                "HBAR" => 100000000,
+                "LTC"  => 100000000,
+                "XRP"  => 100000000,
+                "ZEC"  => 100000000,
+                "CSPR" => 1000000000,
+                "AVAX" => 1000000000000000000,
+                "CELO" => 1000000000000000000,
+                "ETH"  => 1000000000000000000,
+                "RBTC" => 1000000000000000000,
+            ];
+        }
+
+        if (is_null($input)) {
+            return $output;
+        } else {
+            $result = 100000000;
+            if (isset($output[$input])) {
+                $result = $output[$input];
+            }
+            return $result;
+        }
+    }
+// bitgo divisibility testnet
+    public function bitgo_divisibility_value_testnet()
+    {
+        return [
+            "TEOS"  => 10000,
+            "TALGO" => 1000000,
+            "TSTX"  => 1000000,
+            "TXTZ"  => 1000000,
+            "TTRX"  => 1000000,
+            "TXLM"  => 10000000,
+            "TBTC"  => 100000000,
+            "TBCH"  => 100000000,
+            "TDASH" => 100000000,
+            "THBAR" => 100000000,
+            "TLTC"  => 100000000,
+            "TXRP"  => 100000000,
+            "TZEC"  => 100000000,
+            "TCSPR" => 1000000000,
+            "TAVAX" => 1000000000000000000,
+            "TCELO" => 1000000000000000000,
+            "TETH"  => 1000000000000000000,
+            "TRBTC" => 1000000000000000000,
+        ];
     }
 }
