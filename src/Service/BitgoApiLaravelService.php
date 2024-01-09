@@ -425,6 +425,7 @@ class BitgoApiLaravelService
                 "XLM"  => 10000000,
                 "XRP"  => 100000000,
                 "ZEC"  => 100000000,
+                "POLYGON:USDCV2" => 1000000
             ];
         }
 
