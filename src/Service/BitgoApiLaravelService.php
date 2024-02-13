@@ -263,7 +263,7 @@ class BitgoApiLaravelService
     public function sendCoins($coin,$walletId,$amount,$address,$walletPassphrase) {
         $sendAmount = $this->bitgo_divisibility_value(strtoupper($coin)) * $amount;
         $req = array(
-            'amount' => $sendAmount,
+            'amount' => (string)$sendAmount,
             'address' => $address,
             'walletPassphrase' => $walletPassphrase
         );
